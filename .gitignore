@@ -1,5 +1,5 @@
 # Ignored files
-app.config
+*.config
 *.exe
 *.pdb
 *.suo
