@@ -1,0 +1,18 @@
+# Ignored files
+app.config
+*.exe
+*.pdb
+*.suo
+*.user
+bin
+obj
+*.pdb
+*.cache
+*_svn
+*.suo
+*.user
+*.build-res
+src/*/obj
+src/*/bin
+TestResults
+_ReSharper*
