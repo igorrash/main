@@ -4,6 +4,7 @@
 *.pdb
 *.suo
 *.user
+Bin_All
 bin
 obj
 *.pdb
