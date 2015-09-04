@@ -12,6 +12,7 @@ obj
 *_svn
 *.suo
 *.user
+*.dll
 *.build-res
 src/*/obj
 src/*/bin

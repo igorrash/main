@@ -188,6 +188,11 @@ namespace External
                 //close connection
                 CloseConnection();
             }
+            else
+            {
+                throw new Exception("Could not establish connection");
+            }
+
             return dt;
         }
 

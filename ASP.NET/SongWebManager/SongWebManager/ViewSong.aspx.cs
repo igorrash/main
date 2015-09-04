@@ -1,41 +1,55 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Web.Services;
 using System.Web.UI;
 using External;
 
 namespace SongWebManager
 {
-    public partial class _Default : Page
+    public partial class ViewSong : Page
     {
-        private DbConnect _dbConnect;
+        private static DbConnect _dbConnect;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (_dbConnect == null)
+            try
             {
-                var database = ConfigurationManager.AppSettings["database"];
-                var username = ConfigurationManager.AppSettings["username"];
-                var password = ConfigurationManager.AppSettings["password"];
-
-                _dbConnect = new DbConnect(database, username, password);
+                SetDbHelperConnection();
+                ViewSongs();
             }
-
-            ViewSongs();
+            catch (Exception ex)
+            {
+                ErrorLabel.Text = ex.Message;
+            }
         }
 
         [WebMethod]
-        public static string SaveSong(string songId, string songContent)
+        public static string UpdateSong(string songId, string songContent)
         {
-            Console.WriteLine("SongId:{0}SongContent:{1}", songId, songContent);
+            SetDbHelperConnection();
+
+            var dt = _dbConnect.RunSql(string.Format(StaticSql.UpdateSongContent,songContent,songId));
 
             return "success yeii";
         }
 
+        [WebMethod]
+        public static string SaveSong(string songContent)
+        {
+            SetDbHelperConnection();
+
+            var songName = Regex.Split(songContent, "\n\n");
+
+            var dt = _dbConnect.RunSql(string.Format(StaticSql.AddSong, songName[0], songContent));
+
+            return "success yeii";
+        }
+
+
         public void ViewSongs()
         {
             var dt = _dbConnect.RunSql("Select songId, songName, songContent from SONGS order by songName");
-
             var songList = string.Empty;
             foreach (DataRow row in dt.Rows)
             {
@@ -51,7 +65,7 @@ namespace SongWebManager
 
 
                 songList += songTitle + HtmlHelper.HorizontalLine + string.Format("<div id=\"{0}\">", divId) +
-                            GenerateInput("button" + row["songId"], "save","SaveSong('" + row["songId"] + "')", InputTypeEnum.button) +
+                            GenerateInput("button" + row["songId"], "save", "UpdateSong('" + row["songId"] + "')", InputTypeEnum.button) +
                             HtmlHelper.NewLine + songContent + "</div>";
             }
             Songs.Text = songList;    
@@ -72,7 +86,6 @@ namespace SongWebManager
                 value, id);
         }
 
-
         private string GenerateLabel(string id, string value, string onClick, bool newLine, string cursor = "auto")
         {
             var result = string.Format("<label style=\"{4};\" onclick=\"{0}\" id=\"{1}\" >{2}</label>{3}", onClick, id,
@@ -84,6 +97,18 @@ namespace SongWebManager
         {
             var result = string.Format("<textarea class=\"songContentTextArea\" id=\"{0}\" >{1}</textarea>", id, value);
             return result;
+        }
+
+        private static void SetDbHelperConnection()
+        {
+            if (_dbConnect == null)
+            {
+                var database = ConfigurationManager.AppSettings["database"];
+                var username = ConfigurationManager.AppSettings["username"];
+                var password = ConfigurationManager.AppSettings["password"];
+
+                _dbConnect = new DbConnect(database, username, password);
+            }
         }
 
     }
