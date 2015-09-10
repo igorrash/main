@@ -57,16 +57,14 @@ namespace SongWebManager
                 var divId = "divContent" + row["songId"];
 
                 //label for song title
-                var songTitle = GenerateLabel("songName" + row["songId"], row["songName"].ToString(),
-                    "ShowSong('" + divId + "')", true, "pointer");
+                var songTitle = GenerateLabel(divId, row["songName"].ToString());
 
                 //textarea for song content
                 var songContent = GenerateTextBox("songContent" + row["songId"], row["songContent"].ToString());
-
-
-                songList += songTitle + HtmlHelper.HorizontalLine + string.Format("<div id=\"{0}\">", divId) +
-                            GenerateInput("button" + row["songId"], "save", "UpdateSong('" + row["songId"] + "')", InputTypeEnum.button) +
-                            HtmlHelper.NewLine + songContent + "</div>";
+                
+                songList += songTitle + 
+                            string.Format("<div id=\"{0}\" class=\"collapse\" >", divId)  + songContent
+                            + GenerateButton("Save", "UpdateSong('" + row["songId"] + "')") + "</div>";
             }
             Songs.Text = songList;    
         }
@@ -80,10 +78,10 @@ namespace SongWebManager
                     .Replace("\r", HtmlHelper.NewLine);
         }
 
-        private string GenerateInput(string id, string value, string onClick, InputTypeEnum inputType)
+        private string GenerateButton(string value, string onClick)
         {
-            return string.Format("<input type=\"{0}\" onclick=\"{1}\" value=\"{2}\" id=\"{3}\" />", inputType, onClick,
-                value, id);
+            return string.Format("<button class=\"btn btn-success btn-block\" onclick=\"{0}\">{1}</button>", onClick,
+                value);
         }
 
         private string GenerateLabel(string id, string value, string onClick, bool newLine, string cursor = "auto")
@@ -93,9 +91,17 @@ namespace SongWebManager
             return result;
         }
 
+        private string GenerateLabel(string divId, string value)
+        {
+            var result = string.Format("<label class=\"btn btn-primary btn-block\" data-toggle=\"collapse\" " +
+                                       "data-target=\"#{0}\">{1}</label>", 
+                                       divId, value);
+            return result;
+        }
+
         private string GenerateTextBox(string id, string value)
         {
-            var result = string.Format("<textarea class=\"songContentTextArea\" id=\"{0}\" >{1}</textarea>", id, value);
+            var result = string.Format("<textarea class=\"form-control\" rows=\"15\"  id=\"{0}\" >{1}</textarea>", id, value);
             return result;
         }
 
