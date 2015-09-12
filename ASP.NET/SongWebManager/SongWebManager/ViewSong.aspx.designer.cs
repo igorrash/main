@@ -8,10 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace SongWebManager {
-
-
-    public partial class ViewSong
-    {
+    
+    
+    public partial class ViewSong {
         
         /// <summary>
         /// ErrorLabel control.

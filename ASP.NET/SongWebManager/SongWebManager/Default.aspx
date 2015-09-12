@@ -13,26 +13,15 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
     <style>
         body {
-            background: url("http://img15.deviantart.net/37be/i/2010/191/3/b/blue_website_background___psd_by_fisher_12.jpg") no-repeat center center fixed;
-            background-color: #cccccc;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
+            vertical-align: middle; 
+            margin: 20px 20px 20px 20px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block" href="ViewSong.aspx">ViewSong</a>
-
+        <a type="button" class="btn btn-primary btn-block btn-lg" href="ViewSong.aspx">ViewSong</a>
+        <a type="button" class="btn btn-primary btn-block btn-lg" href="SongChords.aspx">Songs' Chords</a>
     </form>
 </body>
 </html>

@@ -24,18 +24,19 @@
         function SaveSong() {
             var songContent = $("#newSongTextArea").val();
             var parameter = {"songContent": songContent }
-            CallAjax(parameter);
+            CallSaveSong(parameter);
             return false;
         }
 
         function UpdateSong(songId) {
-            var songContent = $("#songContent" + songId).val();
+            var textboxId = "#songContent" + songId;
+            var songContent = $(textboxId).val();
             var parameter = { "songId": songId, "songContent": songContent }
-            CallAjax(parameter);
+            CallUpdateSong(parameter, textboxId);
             return false;
         }
 
-        function CallAjax(parameter) {
+        function CallSaveSong(parameter) {
             var pageUrl = "ViewSong.aspx/SaveSong";
             $.ajax({
                 type: 'POST',
@@ -52,31 +53,56 @@
             });
         }
 
+        function CallUpdateSong(parameter, textboxId) {
+            var pageUrl = "ViewSong.aspx/UpdateSong";
+            $.ajax({
+                type: 'POST',
+                url: pageUrl,
+                data: JSON.stringify(parameter),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    //onSuccess(data);
+                    if (data.d) {
+                        $(textboxId).val(data.d);
+                        alert("Saved");
+                    }
+                },
+                error: function (data, success, error) {
+                    alert("Error: " + error);
+                }
+            });
+        }
+
         function onSuccess(data) {
             alert(data.d);
         }
     </script>
     <style type="text/css">
-        .songContentTextArea {
-            height: 200px;
-            width: 400px;
+        body {
+            vertical-align: middle; 
+            margin: 20px 20px 20px 20px;
+            font-size: 25px;
         }
+         .songContentTextArea {
+             height: 200px;
+             width: 400px;
+         }
     </style>
 
 
 
 
 </head>
-<body style="vertical-align: middle; margin: 50px 50px 50px 50px;">
+<body>
     <form runat="server">
         <asp:Label runat="server" ID="ErrorLabel" ForeColor="Red"></asp:Label>
         
         <button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#newSongDiv">Cântare Nouă</button>
         <div id="newSongDiv"  class="collapse" style="margin: 0 0 50px 0" >
             <textarea class="form-control" id="newSongTextArea" rows="10">Titlul Cântârii&#13;&#10;&#13;&#10;Sfrofă(Înlocuiește)&#13;&#10;&#13;&#10;Refren(Înlocuiește)&#13;&#10;&#13;&#10;Sfrofă(Înlocuiește)&#13;&#10;&#13;&#10;Refren(Înlocuiește)&#13;&#10;&#13;&#10;.</textarea>
-            <button class="btn btn-success btn-block" onclick="SaveSong()">Save</button>
+            <button type="button" class="btn btn-success btn-block" onclick="SaveSong()">Save</button>
         </div>
-
         <asp:Label runat="server" ID="Songs"></asp:Label>
     </form>
 </body>

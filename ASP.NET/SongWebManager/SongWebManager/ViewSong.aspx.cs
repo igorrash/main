@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using External;
 
 namespace SongWebManager
@@ -11,12 +13,17 @@ namespace SongWebManager
     public partial class ViewSong : Page
     {
         private static DbConnect _dbConnect;
+        private static DbConnect _dbHistConnect;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                SetDbHelperConnection();
-                ViewSongs();
+                if (!IsPostBack)
+                {
+                    SetDbHelperConnections();
+                    ViewSongs();
+                }
             }
             catch (Exception ex)
             {
@@ -27,20 +34,25 @@ namespace SongWebManager
         [WebMethod]
         public static string UpdateSong(string songId, string songContent)
         {
-            SetDbHelperConnection();
 
-            var dt = _dbConnect.RunSql(string.Format(StaticSql.UpdateSongContent,songContent,songId));
+            SetDbHelperConnections();
+            var dt = _dbConnect.RunSql(string.Format(StaticSql.UpdateSongContent, songContent, songId));
 
-            return "success yeii";
+            SetDbHelperHistConnections();
+            var dtHist = _dbHistConnect.RunSql(string.Format(StaticSql.AddSongHist, songId, songContent));
+
+            
+
+            return songContent;
         }
 
         [WebMethod]
         public static string SaveSong(string songContent)
         {
-            SetDbHelperConnection();
+            SetDbHelperConnections();
 
             var songName = Regex.Split(songContent, "\n\n");
-
+            
             var dt = _dbConnect.RunSql(string.Format(StaticSql.AddSong, songName[0], songContent));
 
             return "success yeii";
@@ -80,7 +92,7 @@ namespace SongWebManager
 
         private string GenerateButton(string value, string onClick)
         {
-            return string.Format("<button class=\"btn btn-success btn-block\" onclick=\"{0}\">{1}</button>", onClick,
+            return string.Format("<button type=\"button\" class=\"btn btn-success btn-block\" onclick=\"{0}\">{1}</button>", onClick,
                 value);
         }
 
@@ -105,7 +117,7 @@ namespace SongWebManager
             return result;
         }
 
-        private static void SetDbHelperConnection()
+        private static void SetDbHelperConnections()
         {
             if (_dbConnect == null)
             {
@@ -114,6 +126,18 @@ namespace SongWebManager
                 var password = ConfigurationManager.AppSettings["password"];
 
                 _dbConnect = new DbConnect(database, username, password);
+            }
+        }
+
+        private static void SetDbHelperHistConnections()
+        {
+            if (_dbHistConnect == null)
+            {
+                var database = ConfigurationManager.AppSettings["databaseHist"];
+                var username = ConfigurationManager.AppSettings["usernameHist"];
+                var password = ConfigurationManager.AppSettings["passwordHist"];
+
+                _dbHistConnect = new DbConnect(database, username, password);
             }
         }
 

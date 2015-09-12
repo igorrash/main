@@ -122,10 +122,12 @@
 SET songName = '{0}',
 songContent = '{1}',
 songType = 'Non',
-songIsActive = 1,
-lastUpdated = SYSDATE()
+songIsActive = 1
 
 </value>
+  </data>
+  <data name="AddSongHist" xml:space="preserve">
+    <value>INSERT INTO SONGS_HIST (songId,songContent) values ({0},'{1}')</value>
   </data>
   <data name="AllSongs" xml:space="preserve">
     <value>Select songId, songName, songContent from SONGS order by songName</value>
