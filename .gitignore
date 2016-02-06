@@ -1,9 +1,10 @@
 # Ignored files
-app.config
+*.config
 *.exe
 *.pdb
 *.suo
 *.user
+Bin_All
 bin
 obj
 *.pdb
@@ -11,6 +12,7 @@ obj
 *_svn
 *.suo
 *.user
+*.dll
 *.build-res
 src/*/obj
 src/*/bin
