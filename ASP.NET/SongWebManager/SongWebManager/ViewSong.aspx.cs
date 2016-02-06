@@ -41,8 +41,6 @@ namespace SongWebManager
             SetDbHelperHistConnections();
             var dtHist = _dbHistConnect.RunSql(string.Format(StaticSql.AddSongHist, songId, songContent));
 
-            
-
             return songContent;
         }
 

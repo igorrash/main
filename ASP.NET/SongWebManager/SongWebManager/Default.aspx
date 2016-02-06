@@ -21,7 +21,8 @@
 <body>
     <form id="form1" runat="server">
         <a type="button" class="btn btn-primary btn-block btn-lg" href="ViewSong.aspx">ViewSong</a>
-        <a type="button" class="btn btn-primary btn-block btn-lg" href="SongChords.aspx">Songs' Chords</a>
+        <a type="button" class="btn btn-primary btn-block btn-lg" href="ViewSong.aspx">Sync</a>
+<%--        <a type="button" class="btn btn-primary btn-block btn-lg" href="SongChords.aspx">Songs' Chords</a>--%>
     </form>
 </body>
 </html>

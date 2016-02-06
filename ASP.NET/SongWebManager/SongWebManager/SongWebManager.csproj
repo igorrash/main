@@ -38,16 +38,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AppLimit.CloudComputing.SharpBox">
+      <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+    </Reference>
+    <Reference Include="AppLimit.CloudComputing.SharpBox.ExperimentalProvider">
+      <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\AppLimit.CloudComputing.SharpBox.ExperimentalProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="AppLimit.CloudComputing.SharpBox.MockProvider">
+      <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\AppLimit.CloudComputing.SharpBox.MockProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DropBoxTokenIssuer">
+      <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\DropBoxTokenIssuer.exe</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Bin_All\MySql.Data.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net40">
+      <HintPath>..\packages\AppLimit.CloudComputing.SharpBox.1.2.0.542\lib\net40-full\Newtonsoft.Json.Net40.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -55,9 +71,14 @@
   <ItemGroup>
     <Content Include="AddSong.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="UpdateSong.aspx" />
+    <Content Include="SyncPage.aspx" />
     <Content Include="ViewSong.aspx" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Somee Igor.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -92,17 +113,22 @@
     </Compile>
     <Compile Include="HtmlHelper.cs" />
     <Compile Include="InputTypeEnum.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="StaticSql.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StaticSql.resx</DependentUpon>
     </Compile>
-    <Compile Include="UpdateSong.aspx.cs">
-      <DependentUpon>UpdateSong.aspx</DependentUpon>
+    <Compile Include="SyncPage.aspx.cs">
+      <DependentUpon>SyncPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UpdateSong.aspx.designer.cs">
-      <DependentUpon>UpdateSong.aspx</DependentUpon>
+    <Compile Include="SyncPage.aspx.designer.cs">
+      <DependentUpon>SyncPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSong.aspx.cs">
       <DependentUpon>ViewSong.aspx</DependentUpon>

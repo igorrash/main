@@ -18,3 +18,4 @@ src/*/obj
 src/*/bin
 TestResults
 _ReSharper*
+*.dll
